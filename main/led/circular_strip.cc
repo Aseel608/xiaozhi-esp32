@@ -199,9 +199,10 @@ void CircularStrip::OnStateChanged() {
     auto device_state = app.GetDeviceState();
     switch (device_state) {
         case kDeviceStateStarting: {
+            // تأثير دوران ترحيبي باللون الأزرق السماوي
             StripColor low = { 0, 0, 0 };
-            StripColor high = { low_brightness_, low_brightness_, default_brightness_ };
-            Scroll(low, high, 3, 100);
+            StripColor high = { 0, low_brightness_, default_brightness_ };
+            Scroll(low, high, 3, 80);
             break;
         }
         case kDeviceStateWifiConfiguring: {
@@ -219,13 +220,17 @@ void CircularStrip::OnStateChanged() {
         }
         case kDeviceStateListening:
         case kDeviceStateAudioTesting: {
-            StripColor color = { default_brightness_, low_brightness_, low_brightness_ };
-            SetAllColor(color);
+            // نمط "التنفس" باللون البنفسجي المبهج أثناء استماع البوت للطالب
+            StripColor low = { 20, 0, 20 };
+            StripColor high = { default_brightness_, 0, default_brightness_ };
+            Breathe(low, high, 30);
             break;
         }
         case kDeviceStateSpeaking: {
-            StripColor color = { low_brightness_, default_brightness_, low_brightness_ };
-            SetAllColor(color);
+            // نمط "التنفس" باللون الأزرق السماوي الذكي أثناء التحدث والشرح
+            StripColor low = { 0, 20, 20 };
+            StripColor high = { 0, default_brightness_, default_brightness_ };
+            Breathe(low, high, 20);
             break;
         }
         case kDeviceStateUpgrading: {
